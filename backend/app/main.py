@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.routers import health, chat, documents, ingest
+from app.routers import health, chat, documents, ingest, search
 
 
 def create_app() -> FastAPI:
@@ -27,6 +27,7 @@ def create_app() -> FastAPI:
     app.include_router(chat.router, prefix=prefix)
     app.include_router(documents.router, prefix=prefix)
     app.include_router(ingest.router, prefix=prefix)
+    app.include_router(search.router, prefix=prefix)
 
     return app
 
