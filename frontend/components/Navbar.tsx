@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MessageSquare, Database, Search, Users, Sparkles } from "lucide-react";
+import { MessageSquare, Database, Search, Users, RefreshCw, Sparkles } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export function Navbar() {
     { label: "Knowledge Base", href: "/admin", icon: Database },
     { label: "Hybrid Search", href: "/search", icon: Search },
     { label: "Sessions", href: "/sessions", icon: Users },
+    { label: "Auto-Sync", href: "/sync", icon: RefreshCw },
   ];
 
   return (
@@ -59,7 +60,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Memory Active
+            Sync Engine Active
           </span>
         </div>
       </div>
