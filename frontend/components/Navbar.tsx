@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MessageSquare, Database, Sparkles } from "lucide-react";
+import { MessageSquare, Database, Search, Sparkles } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -10,6 +10,7 @@ export function Navbar() {
   const navItems = [
     { label: "Support Chat", href: "/", icon: MessageSquare },
     { label: "Knowledge Base", href: "/admin", icon: Database },
+    { label: "Hybrid Search", href: "/search", icon: Search },
   ];
 
   return (
@@ -25,8 +26,8 @@ export function Navbar() {
               <span className="text-sm font-semibold tracking-tight text-slate-900">
                 Support<span className="text-indigo-600">AI</span>
               </span>
-              <span className="hidden sm:inline-block ml-2 rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
-                RAG Agent
+              <span className="hidden sm:inline-block ml-2 rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600 font-mono">
+                v2.0
               </span>
             </div>
           </Link>
@@ -57,7 +58,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            KB Active
+            Hybrid RAG Active
           </span>
         </div>
       </div>
