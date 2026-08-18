@@ -34,26 +34,26 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
   return (
     <div className={`flex gap-3 text-sm animate-slide-up ${isUser ? "justify-end" : "justify-start"}`}>
       {!isUser && (
-        <AnchorLogo size="sm" className="mt-0.5" />
+        <AnchorLogo size="sm" className="mt-0.5 shadow-md shadow-indigo-600/30" />
       )}
 
-      <div className={`max-w-2xl rounded-2xl p-4 shadow-chat ${
+      <div className={`max-w-2xl rounded-2xl p-4 shadow-lg ${
         isUser
-          ? "bg-indigo-600 text-white"
-          : "border border-slate-200 bg-white text-slate-900"
+          ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-normal"
+          : "border border-slate-800/80 bg-[#111827] text-slate-100 ring-1 ring-white/5"
       }`}>
         {/* Header tags for assistant messages */}
         {!isUser && (
-          <div className="flex items-center justify-between mb-2 pb-2 border-b border-slate-100 text-xs">
-            <div className="flex items-center gap-1.5 font-semibold text-slate-800">
+          <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-slate-800/80 text-xs">
+            <div className="flex items-center gap-1.5 font-semibold text-slate-200">
               <span>Anchor Support Assistant</span>
             </div>
 
             {confidence && (
               <span className={`inline-flex items-center gap-1 text-[10px] font-medium font-mono px-2 py-0.5 rounded-full ${
                 confidence === "high"
-                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                  : "bg-amber-50 text-amber-700 border border-amber-200"
+                  ? "bg-emerald-950/60 text-emerald-400 border border-emerald-500/30"
+                  : "bg-amber-950/60 text-amber-400 border border-amber-500/30"
               }`}>
                 {confidence === "high" ? (
                   <>
@@ -72,7 +72,7 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
         )}
 
         {/* Message body */}
-        <div className={`leading-relaxed whitespace-pre-wrap ${isUser ? "text-white" : "text-slate-800"}`}>
+        <div className={`leading-relaxed whitespace-pre-wrap ${isUser ? "text-white" : "text-slate-200"}`}>
           {renderFormattedText(content)}
         </div>
 
@@ -81,22 +81,22 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
 
         {/* Cited Sources List (Footer) */}
         {!isUser && sources.length > 0 && (
-          <div className="mt-4 pt-3 border-t border-slate-100">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mb-2">
+          <div className="mt-4 pt-3 border-t border-slate-800/80">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
               Verified Sources ({sources.length})
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {sources.map((src) => (
                 <div
                   key={src.citation_index}
-                  className="rounded-lg border border-slate-200 bg-slate-50/70 p-2 text-xs flex items-start gap-2"
+                  className="rounded-lg border border-slate-800 bg-slate-900/80 p-2 text-xs flex items-start gap-2"
                 >
-                  <span className="flex h-4 min-w-4 items-center justify-center rounded bg-indigo-100 font-mono text-[10px] font-bold text-indigo-700">
+                  <span className="flex h-4 min-w-4 items-center justify-center rounded bg-indigo-950 border border-indigo-500/30 font-mono text-[10px] font-bold text-indigo-300">
                     {src.citation_index}
                   </span>
                   <div className="overflow-hidden">
-                    <p className="font-medium text-slate-900 truncate">{src.document_name}</p>
-                    <p className="text-[11px] text-slate-500 truncate">§ {src.section}</p>
+                    <p className="font-medium text-slate-200 truncate">{src.document_name}</p>
+                    <p className="text-[11px] text-slate-400 truncate">§ {src.section}</p>
                   </div>
                 </div>
               ))}
@@ -106,7 +106,7 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
       </div>
 
       {isUser && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-200 text-slate-600 mt-0.5">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-800 border border-slate-700 text-slate-300 mt-0.5">
           <User className="h-4 w-4" />
         </div>
       )}

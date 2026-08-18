@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { CitationSource } from "@/lib/api";
@@ -14,7 +14,7 @@ export function CitationChip({ index, source }: CitationChipProps) {
 
   if (!source) {
     return (
-      <span className="inline-flex items-center justify-center mx-0.5 h-4 min-w-4 px-1 rounded bg-indigo-50 text-[10px] font-mono font-semibold text-indigo-700 border border-indigo-200">
+      <span className="inline-flex items-center justify-center mx-0.5 h-4 min-w-4 px-1 rounded bg-indigo-950 text-[10px] font-mono font-semibold text-indigo-300 border border-indigo-500/30">
         {index}
       </span>
     );
@@ -27,24 +27,24 @@ export function CitationChip({ index, source }: CitationChipProps) {
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         onClick={() => setShowTooltip(!showTooltip)}
-        className="inline-flex items-center justify-center h-4 min-w-4 px-1 rounded bg-indigo-50 hover:bg-indigo-100 text-[10px] font-mono font-semibold text-indigo-700 border border-indigo-200 transition-colors shadow-xs"
+        className="inline-flex items-center justify-center h-4 min-w-4 px-1 rounded bg-indigo-950/80 hover:bg-indigo-900 text-[10px] font-mono font-semibold text-indigo-300 border border-indigo-500/30 hover:border-indigo-400/50 transition-colors shadow-xs"
       >
         {index}
       </button>
 
-      {/* Popover Preview (Perplexity style) */}
+      {/* Dark Popover Preview */}
       {showTooltip && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-72 rounded-xl border border-slate-200 bg-white p-3 shadow-xl text-left text-xs animate-fade-in pointer-events-auto">
-          <div className="flex items-center gap-1.5 font-medium text-slate-900 mb-1 border-b border-slate-100 pb-1.5">
-            <FileText className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-72 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-md p-3 shadow-2xl text-left text-xs animate-fade-in pointer-events-auto ring-1 ring-white/10">
+          <div className="flex items-center gap-1.5 font-medium text-white mb-1 border-b border-slate-800 pb-1.5">
+            <FileText className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
             <span className="truncate">{source.document_name}</span>
           </div>
 
-          <div className="text-[11px] font-mono text-indigo-600 mb-1.5">
+          <div className="text-[11px] font-mono text-indigo-400 mb-1.5">
             § {source.section}
           </div>
 
-          <p className="text-slate-600 text-[11px] leading-relaxed line-clamp-3 bg-slate-50 p-1.5 rounded border border-slate-100">
+          <p className="text-slate-300 text-[11px] leading-relaxed line-clamp-3 bg-slate-950/80 p-2 rounded-lg border border-slate-800/80">
             "{source.snippet}"
           </p>
 
@@ -53,7 +53,7 @@ export function CitationChip({ index, source }: CitationChipProps) {
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium text-indigo-600 hover:text-indigo-700 hover:underline"
+              className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium text-indigo-400 hover:text-indigo-300 hover:underline"
             >
               <span>View Source Documentation</span>
               <ExternalLink className="h-3 w-3" />

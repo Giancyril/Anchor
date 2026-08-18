@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Users, Clock, Smile, Frown, MessageSquare, AlertTriangle, RefreshCw, Layers } from "lucide-react";
+import { Users, Clock, Smile, Frown, MessageSquare, AlertTriangle, RefreshCw } from "lucide-react";
 
 interface SessionMessage {
   role: string;
@@ -56,17 +56,17 @@ export default function SessionsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+          <h1 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
             Customer Session Explorer & Intent Analytics
           </h1>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-400">
             Multi-turn conversation histories, zero-shot intent categorization, and customer sentiment trajectory.
           </p>
         </div>
 
         <button
           onClick={fetchSessions}
-          className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50 transition shadow-2xs"
+          className="flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition shadow-sm"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
           <span>Refresh</span>
@@ -75,30 +75,30 @@ export default function SessionsPage() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-slate-400">Tracked Conversations</span>
-          <p className="mt-1 text-2xl font-bold text-slate-900">{totalSessions}</p>
+        <div className="rounded-2xl border border-slate-800/80 bg-[#111827] p-5 shadow-xl ring-1 ring-white/5">
+          <span className="text-[11px] font-mono uppercase text-slate-500 font-semibold">Tracked Conversations</span>
+          <p className="mt-1 text-2xl font-bold text-white">{totalSessions}</p>
         </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-slate-400">Frustration / Escalation Dips</span>
-          <p className="mt-1 text-2xl font-bold text-amber-600">{churnRiskCount}</p>
+        <div className="rounded-2xl border border-slate-800/80 bg-[#111827] p-5 shadow-xl ring-1 ring-white/5">
+          <span className="text-[11px] font-mono uppercase text-slate-500 font-semibold">Frustration / Escalation Dips</span>
+          <p className="mt-1 text-2xl font-bold text-amber-400">{churnRiskCount}</p>
         </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <span className="text-[11px] font-mono uppercase text-slate-400">Context Window Mode</span>
-          <p className="mt-1 text-2xl font-bold text-slate-900 font-mono">Sliding 10-Turn</p>
+        <div className="rounded-2xl border border-slate-800/80 bg-[#111827] p-5 shadow-xl ring-1 ring-white/5">
+          <span className="text-[11px] font-mono uppercase text-slate-500 font-semibold">Context Window Mode</span>
+          <p className="mt-1 text-2xl font-bold text-indigo-400 font-mono">Sliding 10-Turn</p>
         </div>
       </div>
 
       {/* Two-Column Explorer Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sessions List */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
+        <div className="rounded-2xl border border-slate-800/80 bg-[#111827] p-4 shadow-xl ring-1 ring-white/5">
           <h2 className="text-xs font-mono uppercase font-bold text-slate-400 mb-3 tracking-wider">
             Active Sessions ({sessions.length})
           </h2>
 
           {sessions.length === 0 ? (
-            <div className="p-8 text-center text-xs text-slate-400">
+            <div className="p-8 text-center text-xs text-slate-500">
               No sessions recorded yet. Ask a question in Support Chat!
             </div>
           ) : (
@@ -113,23 +113,23 @@ export default function SessionsPage() {
                     onClick={() => setSelectedSession(s)}
                     className={`cursor-pointer rounded-xl border p-3 transition ${
                       isSelected
-                        ? "border-indigo-500 bg-indigo-50/40 shadow-xs"
-                        : "border-slate-200 bg-white hover:border-slate-300"
+                        ? "border-indigo-500 bg-indigo-950/40 shadow-xs"
+                        : "border-slate-800 bg-slate-900/60 hover:border-slate-700"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-[11px] font-semibold text-slate-700">
+                      <span className="font-mono text-[11px] font-semibold text-slate-300">
                         {s.session_id.slice(0, 8)}...
                       </span>
-                      <span className="rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
+                      <span className="rounded-full border border-slate-700 bg-slate-800 px-2 py-0.5 text-[10px] font-medium text-slate-300">
                         {s.primary_intent}
                       </span>
                     </div>
 
-                    <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
+                    <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400">
                       <span>{s.messages.length} messages</span>
                       {hasFrustration && (
-                        <span className="flex items-center gap-1 text-amber-600 font-semibold">
+                        <span className="flex items-center gap-1 text-amber-400 font-semibold">
                           <AlertTriangle className="h-3 w-3" /> Frustrated
                         </span>
                       )}
@@ -142,15 +142,15 @@ export default function SessionsPage() {
         </div>
 
         {/* Selected Session Transcript */}
-        <div className="lg:col-span-2 rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-2 rounded-2xl border border-slate-800/80 bg-[#111827] p-5 shadow-xl ring-1 ring-white/5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
               <div>
-                <h2 className="text-sm font-bold text-slate-900">
+                <h2 className="text-sm font-bold text-white">
                   Transcript Inspector: {selectedSession?.session_id || "None selected"}
                 </h2>
-                <p className="text-[11px] font-mono text-slate-500 mt-0.5">
-                  Primary Intent: <span className="font-semibold text-indigo-600">{selectedSession?.primary_intent}</span>
+                <p className="text-[11px] font-mono text-slate-400 mt-0.5">
+                  Primary Intent: <span className="font-semibold text-indigo-400">{selectedSession?.primary_intent}</span>
                 </p>
               </div>
             </div>
@@ -163,11 +163,11 @@ export default function SessionsPage() {
                     key={idx}
                     className={`rounded-xl p-3 text-xs leading-relaxed ${
                       m.role === "user"
-                        ? "bg-indigo-600 text-white ml-8"
-                        : "bg-slate-50 border border-slate-200 text-slate-800 mr-8"
+                        ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white ml-8"
+                        : "bg-slate-900 border border-slate-800 text-slate-200 mr-8"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1 opacity-80 text-[10px] font-mono">
+                    <div className="flex items-center justify-between mb-1 opacity-70 text-[10px] font-mono">
                       <span>{m.role === "user" ? "Customer" : "Assistant"}</span>
                       {m.sentiment && <span>Sentiment: {m.sentiment}</span>}
                     </div>
@@ -176,7 +176,7 @@ export default function SessionsPage() {
                 ))}
               </div>
             ) : (
-              <div className="p-12 text-center text-xs text-slate-400">
+              <div className="p-12 text-center text-xs text-slate-500">
                 Select a session on the left to inspect its conversation turns.
               </div>
             )}
