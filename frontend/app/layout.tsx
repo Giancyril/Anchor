@@ -1,13 +1,14 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
+import { Sidebar } from "@/components/Sidebar";
+import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI Customer Support Agent | Grounded Knowledge Base Assistant",
-  description: "Accurate, source-grounded answers powered by company documentation with inline citations.",
+  title: "Anchor | AI Customer Support Agent",
+  description: "Production-grade RAG support agent with Hybrid Retrieval, Multi-Turn Memory, and Live Agent Triage.",
 };
 
 export default function RootLayout({
@@ -17,11 +18,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-slate-50/50 text-slate-900 antialiased`}>
-        <Navbar />
-        <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-          {children}
-        </main>
+      <body className={`${inter.className} min-h-screen bg-slate-50 text-slate-900 antialiased flex`}>
+        {/* Left Sidebar Navigation */}
+        <Sidebar />
+
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+          <Header />
+          <main className="flex-1 p-6 md:p-8 max-w-6xl mx-auto w-full">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
