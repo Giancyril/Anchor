@@ -31,7 +31,7 @@ export function Sidebar() {
     {
       title: "RAG & Retrieval",
       items: [
-        { label: "Hybrid Search", href: "/search", icon: Search, badge: "BM25+Dense" },
+        { label: "Hybrid Search", href: "/search", icon: Search, badge: "BM25" },
         { label: "Auto-Sync & Diffs", href: "/sync", icon: RefreshCw },
       ],
     },
@@ -47,15 +47,19 @@ export function Sidebar() {
 
   return (
     <aside
-      className={`sticky top-0 h-screen flex flex-col justify-between border-r border-slate-200 bg-white transition-all duration-300 z-40 ${
-        collapsed ? "w-18" : "w-64"
+      className={`sticky top-0 h-screen flex flex-col justify-between border-r border-slate-200 bg-white transition-all duration-300 z-40 shrink-0 ${
+        collapsed ? "w-16" : "w-64"
       }`}
     >
-      {/* Top Brand & Header */}
+      {/* Top Header */}
       <div>
-        <div className="flex h-16 items-center justify-between px-4 border-b border-slate-100">
+        <div
+          className={`flex h-16 items-center border-b border-slate-100 ${
+            collapsed ? "justify-center px-2" : "justify-between px-4"
+          }`}
+        >
           <Link href="/" className="flex items-center gap-3 overflow-hidden group">
-            <AnchorLogo size="md" />
+            <AnchorLogo size="sm" />
             {!collapsed && (
               <div className="flex flex-col">
                 <span className="text-sm font-bold tracking-tight text-slate-900 leading-none">
@@ -66,16 +70,32 @@ export function Sidebar() {
             )}
           </Link>
 
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden sm:flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-700 transition"
-          >
-            {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          </button>
+          {!collapsed && (
+            <button
+              onClick={() => setCollapsed(true)}
+              title="Collapse sidebar"
+              className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-700 transition"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+          )}
         </div>
 
+        {/* Collapsed Expand Trigger Bar */}
+        {collapsed && (
+          <div className="flex justify-center pt-2 pb-1 border-b border-slate-100/60">
+            <button
+              onClick={() => setCollapsed(false)}
+              title="Expand sidebar"
+              className="flex h-6 w-6 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition"
+            >
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        )}
+
         {/* Navigation Items */}
-        <div className="p-3 space-y-6 overflow-y-auto max-h-[calc(100vh-140px)]">
+        <div className={`space-y-5 overflow-y-auto max-h-[calc(100vh-140px)] ${collapsed ? "p-2" : "p-3"}`}>
           {navGroups.map((group, gIdx) => (
             <div key={gIdx} className="space-y-1">
               {!collapsed && (
@@ -93,7 +113,9 @@ export function Sidebar() {
                       key={item.href}
                       href={item.href}
                       title={collapsed ? item.label : undefined}
-                      className={`flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-medium transition group relative ${
+                      className={`flex items-center rounded-xl text-xs font-medium transition group relative ${
+                        collapsed ? "justify-center p-2.5" : "justify-start px-3 py-2 gap-3"
+                      } ${
                         isActive
                           ? "bg-indigo-50/80 text-indigo-700 font-semibold shadow-2xs"
                           : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
@@ -130,7 +152,7 @@ export function Sidebar() {
       </div>
 
       {/* Bottom Status Card */}
-      <div className="p-3 border-t border-slate-100">
+      <div className={`border-t border-slate-100 ${collapsed ? "p-2" : "p-3"}`}>
         {!collapsed ? (
           <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 text-xs">
             <div className="flex items-center justify-between mb-1.5">
@@ -145,8 +167,11 @@ export function Sidebar() {
             </p>
           </div>
         ) : (
-          <div className="flex justify-center">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" title="System Live" />
+          <div className="flex justify-center py-2" title="System Live: Pinecone + OpenAI">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+            </span>
           </div>
         )}
       </div>
