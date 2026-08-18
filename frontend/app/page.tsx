@@ -1,16 +1,17 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import { sendMessage, ChatResponse, CitationSource } from "@/lib/api";
 import { ChatMessage, MessageProps } from "@/components/chat/ChatMessage";
 import { TypingIndicator } from "@/components/chat/TypingIndicator";
-import { Send, Sparkles, RefreshCw, HelpCircle, Shield, CreditCard, Key } from "lucide-react";
+import { AnchorLogo } from "@/components/AnchorLogo";
+import { Send, RefreshCw, HelpCircle, Shield, CreditCard, Key, Sparkles } from "lucide-react";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<MessageProps[]>([
     {
       role: "assistant",
-      content: "Hello! I am your AI Support Assistant. I can answer questions regarding billing, integrations, security, pricing, and troubleshooting based directly on our company documentation. How can I help you today?",
+      content: "Hello! I am Anchor, your AI Support Assistant. I can answer questions regarding billing, integrations, security, pricing, and troubleshooting based directly on our company documentation. How can I help you today?",
       confidence: "high",
     },
   ]);
@@ -131,9 +132,7 @@ export default function ChatPage() {
         ))}
         {loading && (
           <div className="flex gap-3 text-sm animate-slide-up">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white">
-              <Sparkles className="h-4 w-4" />
-            </div>
+            <AnchorLogo size="sm" className="mt-0.5" />
             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-chat">
               <TypingIndicator />
             </div>

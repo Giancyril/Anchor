@@ -11,12 +11,10 @@ import {
   RefreshCw,
   LifeBuoy,
   Activity,
-  Sparkles,
   ChevronLeft,
   ChevronRight,
-  Shield,
-  Zap,
 } from "lucide-react";
+import { AnchorLogo } from "@/components/AnchorLogo";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -56,16 +54,14 @@ export function Sidebar() {
       {/* Top Brand & Header */}
       <div>
         <div className="flex h-16 items-center justify-between px-4 border-b border-slate-100">
-          <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-brand">
-              <Sparkles className="h-5 w-5" />
-            </div>
+          <Link href="/" className="flex items-center gap-3 overflow-hidden group">
+            <AnchorLogo size="md" />
             {!collapsed && (
               <div className="flex flex-col">
                 <span className="text-sm font-bold tracking-tight text-slate-900 leading-none">
                   Anchor<span className="text-indigo-600">AI</span>
                 </span>
-                <span className="text-[10px] font-mono text-slate-400 mt-0.5">RAG Agent v2.0</span>
+                <span className="text-[10px] font-mono text-slate-400 mt-1">RAG Agent v2.0</span>
               </div>
             )}
           </Link>

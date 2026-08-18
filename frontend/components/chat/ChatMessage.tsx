@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import { CitationSource } from "@/lib/api";
 import { CitationChip } from "./CitationChip";
 import { EscalationBanner } from "./EscalationBanner";
-import { User, Sparkles, FileText, CheckCircle2, AlertCircle } from "lucide-react";
+import { User, CheckCircle2, AlertCircle } from "lucide-react";
+import { AnchorLogo } from "@/components/AnchorLogo";
 
 export interface MessageProps {
   role: "user" | "assistant";
@@ -18,7 +19,6 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
   const isUser = role === "user";
   const sourceMap = new Map<number, CitationSource>(sources.map((s) => [s.citation_index, s]));
 
-  // Parse inline citations [1], [2] in text and render CitationChip
   const renderFormattedText = (text: string) => {
     const parts = text.split(/(\[\d+\])/g);
     return parts.map((part, i) => {
@@ -34,9 +34,7 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
   return (
     <div className={`flex gap-3 text-sm animate-slide-up ${isUser ? "justify-end" : "justify-start"}`}>
       {!isUser && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-xs">
-          <Sparkles className="h-4 w-4" />
-        </div>
+        <AnchorLogo size="sm" className="mt-0.5" />
       )}
 
       <div className={`max-w-2xl rounded-2xl p-4 shadow-chat ${
@@ -47,8 +45,8 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
         {/* Header tags for assistant messages */}
         {!isUser && (
           <div className="flex items-center justify-between mb-2 pb-2 border-b border-slate-100 text-xs">
-            <div className="flex items-center gap-1.5 font-medium text-slate-700">
-              <span>Support Assistant</span>
+            <div className="flex items-center gap-1.5 font-semibold text-slate-800">
+              <span>Anchor Support Assistant</span>
             </div>
 
             {confidence && (
@@ -108,7 +106,7 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
       </div>
 
       {isUser && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-200 text-slate-600">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-200 text-slate-600 mt-0.5">
           <User className="h-4 w-4" />
         </div>
       )}
