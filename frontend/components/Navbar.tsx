@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MessageSquare, Database, Search, Users, RefreshCw, LifeBuoy, Sparkles } from "lucide-react";
+import { MessageSquare, Database, Search, Users, RefreshCw, LifeBuoy, Activity, Sparkles } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -14,6 +14,7 @@ export function Navbar() {
     { label: "Sessions", href: "/sessions", icon: Users },
     { label: "Auto-Sync", href: "/sync", icon: RefreshCw },
     { label: "Escalations", href: "/escalation", icon: LifeBuoy },
+    { label: "Observatory", href: "/telemetry", icon: Activity },
   ];
 
   return (
@@ -37,14 +38,14 @@ export function Navbar() {
         </div>
 
         {/* Center Nav */}
-        <nav className="flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-1">
           {navItems.map(({ label, href, icon: Icon }) => {
             const isActive = pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition ${
                   isActive
                     ? "bg-slate-100 text-slate-900 font-semibold"
                     : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
@@ -61,7 +62,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Triage Active
+            v2.0 Active
           </span>
         </div>
       </div>
