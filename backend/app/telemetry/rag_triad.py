@@ -1,3 +1,4 @@
+import re
 from typing import List, Dict, Any
 from langchain_core.documents import Document
 from pydantic import BaseModel
@@ -14,7 +15,14 @@ class RAGTriadEvaluator:
     Evaluates RAG execution pipelines across Context Relevance, Faithfulness, and Answer Relevance.
     """
     @staticmethod
+    def _tokenize(text: str) -> set[str]:
+        words = re.findall(r"\b[a-zA-Z0-9_-]+\b", text.lower())
+        stopwords = {"what", "is", "the", "for", "a", "an", "in", "of", "and", "or", "to", "how", "do", "i"}
+        filtered = {w for w in words if w not in stopwords and len(w) > 1}
+        return filtered if filtered else set(words)
+
     def evaluate(
+        self,
         query: str,
         retrieved_chunks: List[Document],
         generated_answer: str,
@@ -28,29 +36,29 @@ class RAGTriadEvaluator:
                 status="Hallucination Risk",
             )
 
-        q_words = set(query.lower().split())
-        ans_words = set(generated_answer.lower().split())
-        all_chunk_text = " ".join(c.page_content.lower() for c in retrieved_chunks)
-        chunk_words = set(all_chunk_text.split())
+        q_words = self._tokenize(query)
+        ans_words = self._tokenize(generated_answer)
+        all_chunk_text = " ".join(c.page_content for c in retrieved_chunks)
+        chunk_words = self._tokenize(all_chunk_text)
 
-        # 1. Context Relevance: Query overlap with retrieved chunks
+        # 1. Context Relevance: Content words from query present in retrieved chunks
         q_in_chunks = sum(1 for w in q_words if w in chunk_words)
-        context_relevance = min(1.0, max(0.2, q_in_chunks / max(1, len(q_words))))
+        context_relevance = q_in_chunks / max(1, len(q_words))
 
-        # 2. Groundedness (Faithfulness): Answer words grounded in chunk text
-        ans_in_chunks = sum(1 for w in ans_words if w in chunk_words or len(w) <= 3)
-        groundedness = min(1.0, max(0.3, ans_in_chunks / max(1, len(ans_words))))
+        # 2. Groundedness (Faithfulness): Answer tokens supported by chunk text
+        ans_in_chunks = sum(1 for w in ans_words if w in chunk_words)
+        groundedness = ans_in_chunks / max(1, len(ans_words))
 
-        # 3. Answer Relevance: Answer addresses query words
+        # 3. Answer Relevance: Answer addresses core query entities
         ans_q_overlap = sum(1 for w in q_words if w in ans_words)
-        answer_relevance = min(1.0, max(0.4, ans_q_overlap / max(1, len(q_words))))
+        answer_relevance = ans_q_overlap / max(1, len(q_words))
 
         # Composite score
         composite = (context_relevance + groundedness + answer_relevance) / 3.0
 
-        if composite >= 0.8:
+        if composite >= 0.7:
             status = "Optimal"
-        elif composite >= 0.6:
+        elif composite >= 0.4:
             status = "Suboptimal"
         else:
             status = "Hallucination Risk"
