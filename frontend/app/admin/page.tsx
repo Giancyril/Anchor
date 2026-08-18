@@ -52,7 +52,7 @@ export default function AdminPage() {
           </button>
           <button
             onClick={() => setIsUploadOpen(true)}
-            className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 px-3.5 py-1.5 text-xs font-semibold text-white shadow-md shadow-indigo-600/30 hover:from-indigo-500 hover:to-indigo-600 active:scale-95 transition"
+            className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 px-3.5 py-1.5 text-xs font-semibold text-white hover:from-indigo-500 hover:to-indigo-600 active:scale-95 transition"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>Ingest Document</span>

@@ -132,7 +132,7 @@ export default function ChatPage() {
         ))}
         {loading && (
           <div className="flex gap-3 text-sm animate-slide-up">
-            <AnchorLogo size="sm" className="mt-0.5 shadow-md shadow-indigo-600/30" />
+            <AnchorLogo size="sm" className="mt-0.5" />
             <div className="rounded-2xl border border-slate-800 bg-[#111827] p-4 shadow-lg">
               <TypingIndicator />
             </div>
@@ -161,7 +161,7 @@ export default function ChatPage() {
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-600/30 transition hover:from-indigo-500 hover:to-indigo-600 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
+            className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 text-white transition hover:from-indigo-500 hover:to-indigo-600 active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
           >
             <Send className="h-4 w-4" />
           </button>

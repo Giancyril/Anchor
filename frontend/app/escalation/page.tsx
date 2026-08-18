@@ -240,7 +240,7 @@ export default function EscalationPage() {
             <button
               onClick={handleResolve}
               disabled={loading || !replyText.trim() || !selectedTicket}
-              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-600/30 hover:from-indigo-500 hover:to-indigo-600 transition disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 px-4 py-2 text-xs font-semibold text-white hover:from-indigo-500 hover:to-indigo-600 transition disabled:opacity-50"
             >
               <UserCheck className="h-4 w-4" />
               <span>Resolve & Notify Customer</span>

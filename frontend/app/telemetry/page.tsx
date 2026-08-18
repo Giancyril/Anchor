@@ -202,7 +202,7 @@ export default function TelemetryPage() {
 
             <button
               onClick={handleSanitizeTest}
-              className="mt-3 flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 px-3.5 py-1.5 text-xs font-semibold text-white shadow-md shadow-indigo-600/30 hover:from-indigo-500 hover:to-indigo-600 transition"
+              className="mt-3 flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 px-3.5 py-1.5 text-xs font-semibold text-white hover:from-indigo-500 hover:to-indigo-600 transition"
             >
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>Simulate Guardrail Redaction</span>

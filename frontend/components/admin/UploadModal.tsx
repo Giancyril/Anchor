@@ -3,12 +3,21 @@
 import React, { useState } from "react";
 import { ingestDocument } from "@/lib/api";
 import { Upload, X, Loader2, AlertCircle } from "lucide-react";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 
 interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
 }
+
+const CATEGORY_OPTIONS = [
+  { value: "General", label: "General" },
+  { value: "Billing", label: "Billing" },
+  { value: "Security", label: "Security" },
+  { value: "Integrations", label: "Integrations" },
+  { value: "Pricing", label: "Pricing" },
+];
 
 export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
   const [file, setFile] = useState<File | null>(null);
@@ -45,13 +54,8 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 animate-fade-in">
       <div className="relative w-full max-w-md rounded-2xl border border-slate-800 bg-[#111827] p-6 shadow-2xl ring-1 ring-white/10">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-500/30">
-              <Upload className="h-4 w-4" />
-            </div>
-            <h2 className="text-sm font-semibold text-white">Ingest Knowledge Document</h2>
-          </div>
-          <button onClick={onClose} className="rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <h2 className="text-sm font-semibold text-white">Ingest Knowledge Document</h2>
+          <button onClick={onClose} className="rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -78,7 +82,7 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
                   if (!docName) setDocName(f.name.replace(/\.[^/.]+$/, ""));
                 }
               }}
-              className="w-full text-xs text-slate-400 file:mr-3 file:rounded-lg file:border-0 file:bg-indigo-950 file:border-indigo-500/30 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-indigo-300 hover:file:bg-indigo-900"
+              className="w-full text-xs text-slate-400 file:mr-3 file:rounded-lg file:border-0 file:bg-indigo-950 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-indigo-300 hover:file:bg-indigo-900 transition"
             />
           </div>
 
@@ -90,24 +94,18 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
               onChange={(e) => setDocName(e.target.value)}
               placeholder="e.g. Billing and Refund Policy"
               required
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs text-white focus:border-indigo-500 focus:outline-hidden"
+              className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white focus:border-indigo-500 focus:outline-hidden transition"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-2">
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Category</label>
-              <select
+              <CustomSelect
+                options={CATEGORY_OPTIONS}
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs text-white focus:border-indigo-500 focus:outline-hidden"
-              >
-                <option value="General">General</option>
-                <option value="Billing">Billing</option>
-                <option value="Security">Security</option>
-                <option value="Integrations">Integrations</option>
-                <option value="Pricing">Pricing</option>
-              </select>
+                onChange={setCategory}
+              />
             </div>
 
             <div>
@@ -117,7 +115,7 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://docs.company.com/..."
-                className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs text-white focus:border-indigo-500 focus:outline-hidden"
+                className="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white focus:border-indigo-500 focus:outline-hidden transition"
               />
             </div>
           </div>
@@ -126,14 +124,14 @@ export function UploadModal({ isOpen, onClose, onSuccess }: UploadModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-800"
+              className="rounded-xl border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading || !file}
-              className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 transition"
             >
               {loading ? (
                 <>

@@ -34,7 +34,7 @@ export function ChatMessage({ role, content, confidence, escalated, sources = []
   return (
     <div className={`flex gap-3 text-sm animate-slide-up ${isUser ? "justify-end" : "justify-start"}`}>
       {!isUser && (
-        <AnchorLogo size="sm" className="mt-0.5 shadow-md shadow-indigo-600/30" />
+        <AnchorLogo size="sm" className="mt-0.5" />
       )}
 
       <div className={`max-w-2xl rounded-2xl p-4 shadow-lg ${
