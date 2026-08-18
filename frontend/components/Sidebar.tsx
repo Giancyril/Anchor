@@ -54,7 +54,7 @@ export function Sidebar() {
       <button
         onClick={() => setCollapsed(!collapsed)}
         title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        className="absolute -right-3 top-5 z-50 flex h-6 w-6 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-slate-400 shadow-md hover:bg-slate-800 hover:text-indigo-400 hover:border-indigo-500/50 transition-all duration-200"
+        className="absolute -right-3 top-5 z-50 flex h-6 w-6 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-indigo-400 hover:border-indigo-500/50 transition-colors duration-200 focus:outline-none"
       >
         <ChevronLeft
           className={`h-3.5 w-3.5 transition-transform duration-300 ease-in-out ${
@@ -70,8 +70,8 @@ export function Sidebar() {
             collapsed ? "justify-center px-2" : "justify-start px-4"
           }`}
         >
-          <Link href="/" className="flex items-center gap-3 overflow-hidden group">
-            <AnchorLogo size="sm" className="shrink-0 shadow-lg shadow-indigo-600/30" />
+          <Link href="/" className="flex items-center gap-3 overflow-hidden focus:outline-none">
+            <AnchorLogo size="sm" className="shrink-0" />
             <div
               className={`flex flex-col transition-all duration-300 ease-in-out ${
                 collapsed
@@ -105,7 +105,7 @@ export function Sidebar() {
                 </span>
               </div>
 
-              <nav className="space-y-1">
+              <nav className="space-y-0.5">
                 {group.items.map((item) => {
                   const Icon = item.icon;
                   const isActive = pathname === item.href;
@@ -115,16 +115,17 @@ export function Sidebar() {
                       key={item.href}
                       href={item.href}
                       title={collapsed ? item.label : undefined}
-                      className={`flex items-center rounded-xl text-xs font-medium transition-all duration-200 group relative overflow-hidden ${
+                      draggable={false}
+                      className={`flex items-center rounded-xl text-xs font-medium transition-colors duration-150 outline-none focus:outline-none ${
                         collapsed ? "justify-center p-2.5" : "justify-start px-3 py-2 gap-3"
                       } ${
                         isActive
-                          ? "bg-indigo-600/15 text-indigo-300 font-semibold border border-indigo-500/30 shadow-xs"
-                          : "text-slate-400 hover:bg-slate-900 hover:text-slate-200"
+                          ? "bg-indigo-600/15 text-indigo-300 font-semibold border border-indigo-500/30"
+                          : "text-slate-400 hover:bg-slate-800/70 hover:text-slate-200 border border-transparent"
                       }`}
                     >
                       <Icon
-                        className={`h-4 w-4 shrink-0 transition-colors duration-200 ${
+                        className={`h-4 w-4 shrink-0 transition-colors duration-150 ${
                           isActive ? "text-indigo-400" : "text-slate-500 group-hover:text-slate-300"
                         }`}
                       />
@@ -138,7 +139,7 @@ export function Sidebar() {
                         <span className="truncate whitespace-nowrap">{item.label}</span>
                         {item.badge && (
                           <span
-                            className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-semibold shrink-0 ml-1.5 ${
+                            className={`rounded-full px-1.5 text-[9px] font-mono font-semibold shrink-0 ml-1.5 ${
                               isActive
                                 ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
                                 : "bg-slate-800 text-slate-400"
@@ -172,7 +173,7 @@ export function Sidebar() {
               </span>
             </div>
           ) : (
-            <div className="transition-opacity duration-300 opacity-100">
+            <div>
               <div className="flex items-center justify-between mb-1.5">
                 <span className="font-mono text-[10px] uppercase font-bold text-slate-500 whitespace-nowrap">
                   System Status
